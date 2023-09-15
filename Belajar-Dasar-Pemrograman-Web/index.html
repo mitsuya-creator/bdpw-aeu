@@ -11,20 +11,20 @@
 
 <body>
     <header>
-        <div>
-            <h1>As Everything Unfolds</h1>
-        </div>
         <nav>
-            <ul>
+            <div>
+                <h1>As Everything Unfolds</h1>
+            </div>
+            <ul class="navbar">
                 <li>
-                    <a href="">Home</a>
+                    <a href="#home">Home</a>
                 </li>
                 <li id="dropdown">
                     <span class="dropbutton" onclick="dropdown()">About</span>
                     <ul class="dropdown-content" id="mydropdown">
-                        <li><a href="">History</a></li>
-                        <li><a href="">Musical Style</a></li>
-                        <li><a href="">Member</a></li>
+                        <li><a href="#history">History</a></li>
+                        <li><a href="#musical-style">Musical Style</a></li>
+                        <li><a href="#member">Member</a></li>
                     </ul>
                 </li>
                 <li><a href="">Author</a></li>
@@ -32,12 +32,80 @@
         </nav>
     </header>
     <main>
-        <article>
-
+        <article class="text-color-primary h-screen justify-center" id="home">
+            <div>
+                <div class="justify-center">
+                    <img src="./assets/main.jpg" alt="as-everything-unfolds" / width="300">
+                </div>
+                <div class="justify-center caption">
+                    <h1>As Everything Unfolds</h1>
+                    <span> is a British metal band from High Wycombe, Buckinghamshire, England.</span>
+                </div>
+            </div>
         </article>
-        <aside>
-
-        </aside>
+        <div class="article">
+            <div class="about">
+                <article id="history">
+                    <div>
+                        <h2>History</h2>
+                        <p>
+                            The band formed in 2013 as an acoustic pairing of Alex Paton and current guitarist, Adam
+                            Kerr.[2]
+                            Their second EP,
+                            Closure, was released in 2018 to positive reviews.[3][4] In September 2020, the band signed
+                            with
+                            Long Branch Records, an
+                            imprint of SPV Schallplatten.[5] They released their first full-length album, Within Each
+                            Lies
+                            The
+                            Other, on 26 March
+                            2021.[6] On 13 May 2022, Owen Hill left the band on good terms to pursue new goals.[7]
+                            In January 2023, the band announced their second album, Ultraviolet, would be released on 21
+                            April.[8]
+                        </p>
+                    </div>
+                </article>
+                <article id="musical-style">
+                    <div>
+                        <h2>Musical Style</h2>
+                        <p>
+                            The group's sound incorporates elements of alternative rock, post-hardcore, and progressive
+                            metal, while lead singer
+                            Charlie Rolfe's vocal style has been described as a mixture of Hayley Williams, Amy Lee and
+                            Becca Macintyre.[9][10][11]
+                        </p>
+                    </div>
+                </article>
+                <article id="member">
+                    <div>
+                        <h2>Member</h2>
+                        <ol>
+                            <li>Charlie Rolfe - lead vocals</li>
+                            <li>Adam Kerr - lead guitar</li>
+                            <li>George Hunt - bass</li>
+                            <li>Jon Cassidy - synths/programming</li>
+                            <li>Jamie Gowers - drums</li>
+                        </ol>
+                    </div>
+                </article>
+                <article>
+                    <div>
+                        <h2>Gallery</h2>
+                    </div>
+                    <div class="gallery">
+                        <img src="./assets/photo-0.webp" alt="as-everything-unfolds-image" width="200" />
+                        <img src="./assets/photo-1.webp" alt="as-everything-unfolds-image" width="200" />
+                        <img src="./assets/photo-2.webp" alt="as-everything-unfolds-image" width="200" />
+                        <img src="./assets/main.jpg" alt="as-everything-unfolds-image" width="200" />
+                    </div>
+                </article>
+            </div>
+            <aside>
+                <div>
+                    <h2>As Everything Unfolds</h2>
+                </div>
+            </aside>
+        </div>
     </main>
     <footer>
 
