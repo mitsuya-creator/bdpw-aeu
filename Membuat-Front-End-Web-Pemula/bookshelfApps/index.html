@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header class="flex-justify-center">
+    <header>
         <nav>
             <h2 class="text-center">BookShelfApps</h2>
             <div class="search-box">
@@ -25,70 +25,72 @@
             </div>
         </nav>
     </header>
-    <div class="form">
-        <header class="title">
-            <h2 class="text-center">Masukkan Buku Baru</h2>
-        </header>
-        <form>
-            <div class="container-input-form flex-justify-center">
-                <label for="judul"></label>
-                <input type="text" placeholder="Judul..." id="judul" class="input-form">
-            </div>
-            <div class="container-input-form flex-justify-center">
-                <label for="penulis"></label>
-                <input type="text" placeholder="Penulis..." id="penulis" class="input-form">
-            </div>
-            <div class="container-input-form flex-justify-center">
-                <label for="tahun"></label>
-                <input type="text" placeholder="Tahun..." id="tahun" class="input-form">
-            </div>
-            <div class="container-checkbox">
-                <input type="checkbox" class="input-checkbox" id="dibaca" />
-                <label for="dibaca">Sudah dibaca</label>
-            </div>
-            <div class="container-button-add flex-justify-center">
-                <button type="submit">Tambahkan</button>
-            </div>
-        </form>
-    </div>
-    <div class="bookshelf">
-        <div class="title-bookshelf">
-            <span class="active">Belum dibaca</span>
-            <span>Sudah dibaca</span>
+    <div class="content">
+        <div class="form">
+            <header class="title">
+                <h2 class="text-center">Masukkan Buku Baru</h2>
+            </header>
+            <form>
+                <div class="container-input-form flex-justify-center">
+                    <label for="judul"></label>
+                    <input type="text" placeholder="Judul..." id="judul" class="input-form">
+                </div>
+                <div class="container-input-form flex-justify-center">
+                    <label for="penulis"></label>
+                    <input type="text" placeholder="Penulis..." id="penulis" class="input-form">
+                </div>
+                <div class="container-input-form flex-justify-center">
+                    <label for="tahun"></label>
+                    <input type="text" placeholder="Tahun..." id="tahun" class="input-form">
+                </div>
+                <div class="container-checkbox">
+                    <input type="checkbox" class="input-checkbox" id="dibaca" />
+                    <label for="dibaca">Sudah dibaca</label>
+                </div>
+                <div class="container-button-add flex-justify-center">
+                    <button type="submit">Tambahkan</button>
+                </div>
+            </form>
         </div>
-        <div class="card-book-container">
-            <div>
-                <div class="card-book">
-                    <h2>Clean Code</h2>
-                    <div class="details">
-                        <span>Robert C.</span>
-                        <span>2008</span>
+        <div class="bookshelf">
+            <div class="title-bookshelf">
+                <span class="active">Belum dibaca</span>
+                <span>Sudah dibaca</span>
+            </div>
+            <div class="card-book-container">
+                <div>
+                    <div class="card-book">
+                        <h2>Clean Code</h2>
+                        <div class="details">
+                            <span>Robert C.</span>
+                            <span>2008</span>
+                        </div>
+                        <div class="container-button-actions">
+                            <button type="button" class="btn-succes">Sudah dibaca</button>
+                            <button type="button" class="btn-danger">Hapus buku</button>
+                        </div>
                     </div>
-                    <div class="container-button-actions">
-                        <button type="button" class="btn-succes">Sudah dibaca</button>
-                        <button type="button" class="btn-danger">Hapus buku</button>
+                    <div class="card-book">
+                        <h2>Clean Code</h2>
+                        <div class="details">
+                            <span>Robert C.</span>
+                            <span>2008</span>
+                        </div>
+                        <div class="container-button-actions">
+                            <button type="button" class="btn-succes">Sudah dibaca</button>
+                            <button type="button" class="btn-danger">Hapus buku</button>
+                        </div>
                     </div>
-                </div>
-                <div class="card-book">
-                    <h2>Clean Code</h2>
-                    <div class="details">
-                        <span>Robert C.</span>
-                        <span>2008</span>
-                    </div>
-                    <div class="container-button-actions">
-                        <button type="button" class="btn-succes">Sudah dibaca</button>
-                        <button type="button" class="btn-danger">Hapus buku</button>
-                    </div>
-                </div>
-                <div class="card-book">
-                    <h2>Clean Code</h2>
-                    <div class="details">
-                        <span>Robert C.</span>
-                        <span>2008</span>
-                    </div>
-                    <div class="container-button-actions">
-                        <button type="button" class="btn-succes">Sudah dibaca</button>
-                        <button type="button" class="btn-danger">Hapus buku</button>
+                    <div class="card-book">
+                        <h2>Clean Code</h2>
+                        <div class="details">
+                            <span>Robert C.</span>
+                            <span>2008</span>
+                        </div>
+                        <div class="container-button-actions">
+                            <button type="button" class="btn-succes">Sudah dibaca</button>
+                            <button type="button" class="btn-danger">Hapus buku</button>
+                        </div>
                     </div>
                 </div>
             </div>
