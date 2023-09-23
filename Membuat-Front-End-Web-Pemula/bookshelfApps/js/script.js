@@ -22,6 +22,7 @@ addButton.addEventListener("click", function (e) {
         }
     }
     listBooks.push(book);
+    listBooks.forEach(content => createCard(content.judul, content.penulis, content.tahun, content.isRead));
     resetValue(titleBook, writerBook, yearBooks, isRead)
     console.log(listBooks)
 
@@ -49,5 +50,27 @@ function addBook(id, judul, penulis, tahun, isRead) {
         id, judul, penulis, tahun, isRead
     }
 }
+
+function createCard(titleBook, writer, year, isRead) {
+    let cardBook = document.createElement("div");
+    cardBook.classList.add("card-book");
+    cardBook.innerHTML = `<h2>${titleBook}</h2>
+                        <div class="details">
+                            <span>${writer}</span>
+                            <span>${year}</span>
+                        </div>`;
+    let containerButtonAction = document.createElement("div");
+    containerButtonAction.classList.add("container-button-actions");
+    let isReadSpan;
+    if (isRead === true) {
+        isReadSpan = "Belum dibaca";
+    } else {
+        isReadSpan = "Sudah dibaca";
+    }
+    containerButtonAction.innerHTML = `<button type="button" class="btn-succes">${isReadSpan}</button>
+                            <button type="button" class="btn-danger">Hapus buku</button>`;
+    cardBook.appendChild(containerButtonAction);
+    console.log(cardBook)
+
+}
 const listBooks = [];
-const RENDER_BOOKS = "render-books";
