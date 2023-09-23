@@ -33,32 +33,33 @@
             <form>
                 <div class="container-input-form flex-justify-center">
                     <label for="judul"></label>
-                    <input type="text" placeholder="Judul..." id="judul" class="input-form">
+                    <input type="text" placeholder="Judul..." id="judul" class="input-form" required>
                 </div>
                 <div class="container-input-form flex-justify-center">
                     <label for="penulis"></label>
-                    <input type="text" placeholder="Penulis..." id="penulis" class="input-form">
+                    <input type="text" placeholder="Penulis..." id="penulis" class="input-form" required>
                 </div>
                 <div class="container-input-form flex-justify-center">
                     <label for="tahun"></label>
-                    <input type="text" placeholder="Tahun..." id="tahun" class="input-form">
+                    <input type="number" placeholder="Tahun..." id="tahun" class="input-form"
+                        onKeyPress="if(this.value.length==4) return false;" required>
                 </div>
                 <div class="container-checkbox">
                     <input type="checkbox" class="input-checkbox" id="dibaca" />
                     <label for="dibaca">Sudah dibaca</label>
                 </div>
                 <div class="container-button-add flex-justify-center">
-                    <button type="submit">Tambahkan</button>
+                    <button type="submit" id="add-button">Tambahkan</button>
                 </div>
             </form>
         </div>
         <div class="bookshelf">
             <div class="title-bookshelf">
-                <span class="active">Belum dibaca</span>
-                <span>Sudah dibaca</span>
+                <span class="active" id="unread">Belum dibaca</span>
+                <span id="read">Sudah dibaca</span>
             </div>
             <div class="card-book-container">
-                <div class="grid-books">
+                <div class="grid-books" id="list-unread">
                     <div class="card-book">
                         <h2>Clean Code</h2>
                         <div class="details">
@@ -115,6 +116,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="grid-books" id="list-read"></div>
             </div>
         </div>
     </div>
