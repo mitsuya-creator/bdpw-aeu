@@ -6,8 +6,12 @@ window.addEventListener("load", function () {
         const submitForm = document.getElementById("add-button");
         submitForm.addEventListener("click", function (e) {
             e.preventDefault();
-            console.log(titleBook.value, writer.value, yearBooks.value, isRead.checked)
-            console.log("submit")
+            let checkForm = checkField(titleBook, writer, yearBooks);
+            if (checkForm.num == -1) {
+                alert(`Silahkan isi kolom ${checkForm.el}`)
+            } else {
+                console.log("submit")
+            }
         })
     }
 })
@@ -50,15 +54,20 @@ isRead = document.getElementById("dibaca");
 //         }
 //     }
 // }
-// function checkField(...param) {
-//     for (let element of param) {
-//         if (element.value == "") {
-//             element.classList.add("border-danger");
-//         } else {
-//             element.classList.remove("border-danger");
-//         }
-//     }
-// }
+function checkField(...param) {
+    for (let element of param) {
+        if (element.value == "") {
+            element.classList.add("border-danger");
+            const result = {
+                num: -1,
+                el: element.getAttribute("id")
+            }
+            return result;
+        } else {
+            element.classList.remove("border-danger");
+        }
+    }
+}
 // function generateBook(id, judul, penulis, tahun, isRead) {
 //     return {
 //         id, judul, penulis, tahun, isRead
