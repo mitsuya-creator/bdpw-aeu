@@ -7,10 +7,17 @@ window.addEventListener("load", function () {
         submitForm.addEventListener("click", function (e) {
             e.preventDefault();
             let checkForm = checkField(titleBook, writer, yearBooks);
-            if (checkForm.num == -1) {
+            console.log(checkForm?.num)
+            if (checkForm?.num == -1) {
                 alert(`Silahkan isi kolom ${checkForm.el}`)
             } else {
                 console.log("submit")
+                let id = +new Date();
+                let yearBooksInt = parseInt(yearBooks.value);
+                let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
+                listBooks.push(book);
+                resetValue(titleBook, writer, isRead, yearBooks);
+                console.log(listBooks);
             }
         })
     }
@@ -23,56 +30,39 @@ yearBooks = document.getElementById("tahun");
 isRead = document.getElementById("dibaca");
 
 
-// const addButton = document.getElementById("add-button");
-// addButton.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     let titleBook = document.getElementById("judul");
-//     let writerBook = document.getElementById("penulis");
-//     let yearBooks = document.getElementById("tahun");
-//     let isRead = document.getElementById("dibaca");
-//     checkField(titleBook, writerBook, yearBooks);
-//     let id = +new Date();
-//     let book = addBook(id, titleBook.value, writerBook.value, yearBooks.value, isRead.checked)
-//     for (let content in book) {
-//         if (book[content] === "") {
-//             alert(`Silakan isi kolom ${content}`)
-//             return;
-//         }
-//     }
-//     listBooks.push(book);
-//     listBooks.forEach(content => createCard(content.judul, content.penulis, content.tahun, content.isRead));
-//     resetValue(titleBook, writerBook, yearBooks, isRead)
-//     console.log(listBooks)
-
-// })
-// function resetValue(...param) {
-//     for (let element of param) {
-//         if (element.getAttribute("type") == "checkbox") {
-//             element.checked = false;
-//         } else {
-//             element.value = "";
-//         }
-//     }
-// }
+function resetValue(...param) {
+    for (let element of param) {
+        if (element.getAttribute("type") == "checkbox") {
+            element.checked = false;
+        } else {
+            element.value = "";
+        }
+    }
+}
 function checkField(...param) {
+    let result;
     for (let element of param) {
         if (element.value == "") {
             element.classList.add("border-danger");
-            const result = {
+            result = {
                 num: -1,
                 el: element.getAttribute("id")
             }
             return result;
         } else {
-            element.classList.remove("border-danger");
+            element.classList?.contains("border-danger") && element.classList.remove("border-danger")
+            result = {
+                num: 1
+            }
         }
     }
+    return result;
 }
-// function generateBook(id, judul, penulis, tahun, isRead) {
-//     return {
-//         id, judul, penulis, tahun, isRead
-//     }
-// }
+function generateBook(id, title, author, year, isComplete) {
+    return {
+        id, title, author, year, isComplete
+    }
+}
 
 // function createCard(titleBook, writer, year, isRead) {
 //     let cardBook = document.createElement("div");
