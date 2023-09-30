@@ -6,7 +6,6 @@ btnRead.addEventListener("click", function () {
     if (listRead.classList.contains("d-none")) {
         listRead.classList.remove("d-none");
         listUnRead.classList.add("d-none");
-        console.log("read");
     }
     if (btnUnRead.classList.contains("active")) {
         btnUnRead.classList.remove("active");
@@ -17,50 +16,49 @@ btnUnRead.addEventListener("click", function () {
     if (listUnRead.classList.contains("d-none")) {
         listUnRead.classList.remove("d-none");
         listRead.classList.add("d-none");
-        console.log("unread")
     }
     if (btnRead.classList.contains("active")) {
         btnRead.classList.remove("active");
         btnUnRead.classList.add("active");
     }
 })
-window.addEventListener("load", function () {
+window.onload = () => {
     if (typeof (Storage) === "undefined") {
         this.alert("Browser yang anda gunakan tidak mendukung Web storage")
         body.classList.add("d-none")
     } else {
-        const submitForm = document.getElementById("add-button");
-        submitForm.addEventListener("click", function (e) {
-            e.preventDefault();
-            let checkForm = checkField(titleBook, writer, yearBooks);
-            console.log(checkForm?.num)
-            if (checkForm?.num == -1) {
-                alert(`Silahkan isi kolom ${checkForm.el}`)
-            } else {
-                console.log("submit")
-                let id = +new Date();
-                let yearBooksInt = parseInt(yearBooks.value);
-                let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
-                listBooks.push(book);
-                resetValue(titleBook, writer, isRead, yearBooks);
-                if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
-                if (listRead.hasChildNodes()) listRead.innerHTML = "";
-                let todoElement;
-                listBooks.forEach(content => {
-                    if (content.isComplete) {
-                        todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                        listRead.append(todoElement);
-                    } else {
-                        todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                        listUnRead.append(todoElement);
-                    }
-                })
-                console.log(listBooks);
-            }
-        })
+        addBook();
     }
-})
+}
 
+function addBook() {
+    const submitForm = document.getElementById("add-button");
+    submitForm.addEventListener("click", function (e) {
+        e.preventDefault();
+        let checkForm = checkField(titleBook, writer, yearBooks);
+        if (checkForm?.num == -1) {
+            alert(`Silahkan isi kolom ${checkForm.el}`)
+        } else {
+            let id = +new Date();
+            let yearBooksInt = parseInt(yearBooks.value);
+            let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
+            listBooks.push(book);
+            resetValue(titleBook, writer, isRead, yearBooks);
+            if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
+            if (listRead.hasChildNodes()) listRead.innerHTML = "";
+            let todoElement;
+            listBooks.forEach(content => {
+                if (content.isComplete) {
+                    todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+                    listRead.append(todoElement);
+                } else {
+                    todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+                    listUnRead.append(todoElement);
+                }
+            })
+        }
+    })
+}
 let titleBook, writer, yearBooks, isRead;
 titleBook = document.getElementById("judul");
 writer = document.getElementById("penulis");
