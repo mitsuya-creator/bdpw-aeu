@@ -1,7 +1,33 @@
+const btnRead = document.getElementById("read");
+const btnUnRead = document.getElementById("unread");
+const listRead = document.getElementById("list-read");
+const listUnRead = document.getElementById("list-unread");
+btnRead.addEventListener("click", function () {
+    if (listRead.classList.contains("d-none")) {
+        listRead.classList.remove("d-none");
+        listUnRead.classList.add("d-none");
+        console.log("read");
+    }
+    if (btnUnRead.classList.contains("active")) {
+        btnUnRead.classList.remove("active");
+        btnRead.classList.add("active");
+    }
+})
+btnUnRead.addEventListener("click", function () {
+    if (listUnRead.classList.contains("d-none")) {
+        listUnRead.classList.remove("d-none");
+        listRead.classList.add("d-none");
+        console.log("unread")
+    }
+    if (btnRead.classList.contains("active")) {
+        btnRead.classList.remove("active");
+        btnUnRead.classList.add("active");
+    }
+})
 window.addEventListener("load", function () {
     if (typeof (Storage) === "undefined") {
         this.alert("Browser yang anda gunakan tidak mendukung Web storage")
-        body.classList.add("d-none");
+        body.classList.add("d-none")
     } else {
         const submitForm = document.getElementById("add-button");
         submitForm.addEventListener("click", function (e) {
@@ -17,8 +43,6 @@ window.addEventListener("load", function () {
                 let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
                 listBooks.push(book);
                 resetValue(titleBook, writer, isRead, yearBooks);
-                const listRead = document.getElementById("list-read");
-                const listUnRead = document.getElementById("list-unread");
                 if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
                 if (listRead.hasChildNodes()) listRead.innerHTML = "";
                 let todoElement;
