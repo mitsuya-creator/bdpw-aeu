@@ -11,6 +11,7 @@ window.onload = () => {
         loadFromLocalStorage(listBooks);
     }
     addBook();
+    document.dispatchEvent(RENDER_EVENT);
 }
 const btnRead = document.getElementById("read");
 const btnUnRead = document.getElementById("unread");
@@ -80,6 +81,7 @@ function addBook() {
                 listUnRead.append(todoElement);
             }
         })
+        document.dispatchEvent(RENDER_EVENT);
     })
 }
 let titleBook, writer, yearBooks, isRead;
@@ -142,6 +144,10 @@ function createCard(titleBook, writer, year, isRead) {
     containerButtonAction.innerHTML = `<button type="button" class="btn-succes">${isReadSpan}</button>
                             <button type="button" class="btn-danger">Hapus buku</button>`;
     cardBook.appendChild(containerButtonAction);
-
     return cardBook;
 }
+
+const RENDER_EVENT = new Event("RENDER_EVENT");
+window.addEventListener("RENDER_EVENT", function () {
+    console.log(document.querySelectorAll(".btn-succes"));
+})
