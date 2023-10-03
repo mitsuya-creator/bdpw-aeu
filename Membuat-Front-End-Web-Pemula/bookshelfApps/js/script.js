@@ -1,3 +1,17 @@
+let listBooks = [];
+window.onload = () => {
+    if (typeof (Storage) === "undefined") {
+        this.alert("Browser yang anda gunakan tidak mendukung Web storage")
+        body.classList.add("d-none")
+        return false;
+    }
+    if (localStorage.getItem("listBooks") !== null) {
+        listBooks = localStorage.getItem("listBooks");
+        listBooks = JSON.parse(listBooks);
+        loadFromLocalStorage(listBooks);
+    }
+    addBook();
+}
 const btnRead = document.getElementById("read");
 const btnUnRead = document.getElementById("unread");
 const listRead = document.getElementById("list-read");
@@ -22,15 +36,21 @@ btnUnRead.addEventListener("click", function () {
         btnUnRead.classList.add("active");
     }
 })
-window.onload = () => {
-    if (typeof (Storage) === "undefined") {
-        this.alert("Browser yang anda gunakan tidak mendukung Web storage")
-        body.classList.add("d-none")
-    } else {
-        addBook();
-    }
-}
 
+function loadFromLocalStorage(listBooks) {
+    if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
+    if (listRead.hasChildNodes()) listRead.innerHTML = "";
+    let todoElement;
+    listBooks.forEach(content => {
+        if (content.isComplete) {
+            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            listRead.append(todoElement);
+        } else {
+            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            listUnRead.append(todoElement);
+        }
+    })
+}
 function addBook() {
     const submitForm = document.getElementById("add-button");
     submitForm.addEventListener("click", function (e) {
@@ -38,25 +58,28 @@ function addBook() {
         let checkForm = checkField(titleBook, writer, yearBooks);
         if (checkForm?.num == -1) {
             alert(`Silahkan isi kolom ${checkForm.el}`)
+            return false;
         } else {
             let id = +new Date();
             let yearBooksInt = parseInt(yearBooks.value);
             let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
             listBooks.push(book);
-            resetValue(titleBook, writer, isRead, yearBooks);
-            if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
-            if (listRead.hasChildNodes()) listRead.innerHTML = "";
-            let todoElement;
-            listBooks.forEach(content => {
-                if (content.isComplete) {
-                    todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                    listRead.append(todoElement);
-                } else {
-                    todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                    listUnRead.append(todoElement);
-                }
-            })
+            let objToStr = JSON.stringify(listBooks);
+            localStorage.setItem("listBooks", objToStr);
         }
+        resetValue(titleBook, writer, isRead, yearBooks);
+        if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
+        if (listRead.hasChildNodes()) listRead.innerHTML = "";
+        let todoElement;
+        listBooks.forEach(content => {
+            if (content.isComplete) {
+                todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+                listRead.append(todoElement);
+            } else {
+                todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+                listUnRead.append(todoElement);
+            }
+        })
     })
 }
 let titleBook, writer, yearBooks, isRead;
@@ -122,4 +145,3 @@ function createCard(titleBook, writer, year, isRead) {
 
     return cardBook;
 }
-const listBooks = [];
