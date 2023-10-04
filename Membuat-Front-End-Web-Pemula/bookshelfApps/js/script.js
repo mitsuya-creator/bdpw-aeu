@@ -11,7 +11,6 @@ window.onload = () => {
         loadFromLocalStorage(listBooks);
     }
     addBook();
-    document.dispatchEvent(RENDER_EVENT);
 }
 const btnRead = document.getElementById("read");
 const btnUnRead = document.getElementById("unread");
@@ -69,18 +68,6 @@ function addBook() {
             localStorage.setItem("listBooks", objToStr);
         }
         resetValue(titleBook, writer, isRead, yearBooks);
-        if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
-        if (listRead.hasChildNodes()) listRead.innerHTML = "";
-        let todoElement;
-        listBooks.forEach(content => {
-            if (content.isComplete) {
-                todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                listRead.append(todoElement);
-            } else {
-                todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-                listUnRead.append(todoElement);
-            }
-        })
         document.dispatchEvent(RENDER_EVENT);
     })
 }
@@ -148,6 +135,18 @@ function createCard(titleBook, writer, year, isRead) {
 }
 
 const RENDER_EVENT = new Event("RENDER_EVENT");
-window.addEventListener("RENDER_EVENT", function () {
+document.addEventListener("RENDER_EVENT", function () {
+    if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
+    if (listRead.hasChildNodes()) listRead.innerHTML = "";
+    let todoElement;
+    listBooks.forEach(content => {
+        if (content.isComplete) {
+            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            listRead.append(todoElement);
+        } else {
+            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            listUnRead.append(todoElement);
+        }
+    })
     console.log(document.querySelectorAll(".btn-succes"));
 })
