@@ -8,7 +8,8 @@ window.onload = () => {
     if (localStorage.getItem("listBooks") !== null) {
         listBooks = localStorage.getItem("listBooks");
         listBooks = JSON.parse(listBooks);
-        loadFromLocalStorage(listBooks);
+        document.dispatchEvent(RENDER_EVENT);
+
     }
     addBook();
 }
@@ -37,20 +38,19 @@ btnUnRead.addEventListener("click", function () {
     }
 })
 
-function loadFromLocalStorage(listBooks) {
-    if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
-    if (listRead.hasChildNodes()) listRead.innerHTML = "";
-    let todoElement;
-    listBooks.forEach(content => {
-        if (content.isComplete) {
-            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-            listRead.append(todoElement);
+function stateBook(id) {
+    let update = listBooks.map(book => {
+        if (book.id == id) {
+            return { ...book, isComplete: !book.isComplete }
         } else {
-            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
-            listUnRead.append(todoElement);
+            return book;
         }
     })
+    listBooks = update;
+    localStorage.setItem("listBooks", JSON.stringify(listBooks));
+    return listBooks;
 }
+
 function addBook() {
     const submitForm = document.getElementById("add-button");
     submitForm.addEventListener("click", function (e) {
@@ -64,8 +64,7 @@ function addBook() {
             let yearBooksInt = parseInt(yearBooks.value);
             let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
             listBooks.push(book);
-            let objToStr = JSON.stringify(listBooks);
-            localStorage.setItem("listBooks", objToStr);
+            localStorage.setItem("listBooks", JSON.stringify(listBooks));
         }
         resetValue(titleBook, writer, isRead, yearBooks);
         document.dispatchEvent(RENDER_EVENT);
@@ -112,7 +111,7 @@ function generateBook(id, title, author, year, isComplete) {
     }
 }
 
-function createCard(titleBook, writer, year, isRead) {
+function createCard(id, titleBook, writer, year, isRead) {
     let cardBook = document.createElement("div");
     cardBook.classList.add("card-book");
     cardBook.innerHTML = `<h2>${titleBook}</h2>
@@ -128,7 +127,7 @@ function createCard(titleBook, writer, year, isRead) {
     } else {
         isReadSpan = "Sudah dibaca";
     }
-    containerButtonAction.innerHTML = `<button type="button" class="btn-succes">${isReadSpan}</button>
+    containerButtonAction.innerHTML = `<button type="button" class="btn-succes" key=${id}>${isReadSpan}</button>
                             <button type="button" class="btn-danger">Hapus buku</button>`;
     cardBook.appendChild(containerButtonAction);
     return cardBook;
@@ -141,12 +140,16 @@ document.addEventListener("RENDER_EVENT", function () {
     let todoElement;
     listBooks.forEach(content => {
         if (content.isComplete) {
-            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             listRead.append(todoElement);
         } else {
-            todoElement = createCard(content.title, content.author, content.year, content.isComplete);
+            todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             listUnRead.append(todoElement);
         }
     })
-    console.log(document.querySelectorAll(".btn-succes"));
+    document.querySelectorAll(".btn-succes").forEach(btn => btn.addEventListener("click", function () {
+        let id = btn.getAttribute("key");
+        console.log(stateBook(id));
+        document.dispatchEvent(RENDER_EVENT);
+    }))
 })
