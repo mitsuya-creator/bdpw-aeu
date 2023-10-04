@@ -50,6 +50,33 @@ function stateBook(id) {
     localStorage.setItem("listBooks", JSON.stringify(listBooks));
     return listBooks;
 }
+function removeBtn(id) {
+    let ask;
+    listBooks.forEach(book => {
+        if (book.id == id) {
+            ask = confirm(`Hapus buku "${book.title}" ?`);
+        }
+        if (ask) {
+            let update = listBooks.filter(book => book.id != id)
+            listBooks = update;
+            localStorage.setItem("listBooks", JSON.stringify(listBooks));
+            Toastify({
+                text: `Menghapus "${book.title}"`,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "rgb(84, 186, 185)",
+                    textAlign: "center",
+                }
+            }).showToast();
+            ask = false;
+            return listBooks;
+        }
+    })
+}
 
 function addBook() {
     const submitForm = document.getElementById("add-button");
@@ -65,6 +92,18 @@ function addBook() {
             let book = generateBook(id, titleBook.value, writer.value, yearBooksInt, isRead.checked);
             listBooks.push(book);
             localStorage.setItem("listBooks", JSON.stringify(listBooks));
+            Toastify({
+                text: `Menambahkan "${titleBook.value}"`,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "rgb(84, 186, 185)",
+                    textAlign: "center",
+                }
+            }).showToast();
         }
         resetValue(titleBook, writer, isRead, yearBooks);
         document.dispatchEvent(RENDER_EVENT);
@@ -128,7 +167,7 @@ function createCard(id, titleBook, writer, year, isRead) {
         isReadSpan = "Sudah dibaca";
     }
     containerButtonAction.innerHTML = `<button type="button" class="btn-succes" key=${id}>${isReadSpan}</button>
-                            <button type="button" class="btn-danger">Hapus buku</button>`;
+                            <button type="button" class="btn-danger" key=${id}>Hapus buku</button>`;
     cardBook.appendChild(containerButtonAction);
     return cardBook;
 }
@@ -149,7 +188,12 @@ document.addEventListener("RENDER_EVENT", function () {
     })
     document.querySelectorAll(".btn-succes").forEach(btn => btn.addEventListener("click", function () {
         let id = btn.getAttribute("key");
-        console.log(stateBook(id));
+        stateBook(id);
+        document.dispatchEvent(RENDER_EVENT);
+    }))
+    document.querySelectorAll(".btn-danger").forEach(btn => btn.addEventListener("click", function () {
+        let id = btn.getAttribute("key");
+        removeBtn(id);
         document.dispatchEvent(RENDER_EVENT);
     }))
 })
