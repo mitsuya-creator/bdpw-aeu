@@ -150,18 +150,6 @@ body {
         justify-content: space-evenly;
     }
 
-    .title-bookshelf>span,
-    .title-bookshelf>span:hover {
-        font-size: 16px;
-        cursor: pointer;
-        width: 190px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 600;
-    }
-
     .active {
         width: 190px;
         height: 60px;
@@ -221,6 +209,14 @@ body {
     .border-danger {
         outline: solid 1px #FF6969;
     }
+
+    .no-book {
+        display: flex;
+        width: 100vw;
+        height: 100px;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media (min-width: 1100px) {
@@ -268,6 +264,11 @@ body {
 
     button:hover {
         cursor: pointer;
+    }
+
+    button:focus {
+        outline: blue solid 1px;
+
     }
 
     .content {
@@ -356,26 +357,14 @@ body {
     .title-bookshelf {
         display: flex;
         justify-content: space-evenly;
-    }
-
-    .title-bookshelf>span,
-    .title-bookshelf>span:hover {
-        font-size: 16px;
-        cursor: pointer;
-        width: 190px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 600;
+        width: 500px;
     }
 
     .active {
         width: 190px;
         height: 60px;
         background-color: var(--bg-color-succes);
-        border-radius: 25px;
-        font-weight: 600;
+        font-size: 16px;
     }
 
     .card-book-container {
@@ -442,5 +431,12 @@ body {
 
     .border-danger {
         outline: solid 1px #FF6969;
+    }
+
+    .no-book {
+        display: flex;
+        width: 500px;
+        justify-content: center;
+        align-items: center;
     }
 }

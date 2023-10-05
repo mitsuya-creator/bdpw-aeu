@@ -196,4 +196,7 @@ document.addEventListener("RENDER_EVENT", function () {
         removeBtn(id);
         document.dispatchEvent(RENDER_EVENT);
     }))
+    if (listUnRead.hasChildNodes() === false) listUnRead.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>";
+    if (listRead.hasChildNodes() === false) listRead.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>";
+    console.log(listUnRead.hasChildNodes())
 })
