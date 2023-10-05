@@ -350,7 +350,7 @@ body {
     }
 
     .bookshelf {
-        margin: 30px 0 0 20px;
+        margin: 30px 0 0 80px;
     }
 
     .title-bookshelf {
@@ -384,6 +384,10 @@ body {
         justify-content: center;
         height: 50vh;
         overflow-y: scroll;
+    }
+
+    .card-book-container::-webkit-scrollbar {
+        width: 10px;
     }
 
     .card-book {
