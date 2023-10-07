@@ -206,8 +206,9 @@ const RENDER_EVENT = new Event("RENDER_EVENT");
 document.addEventListener("RENDER_EVENT", function () {
     if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
     if (listRead.hasChildNodes()) listRead.innerHTML = "";
-    if (searchResult.hasChildNodes()) searchResult.innerHTML = "";
+    searchResult.innerHTML = "";
     let todoElement;
+    let skip = false;
     listBooks.forEach(content => {
         if (content.isComplete) {
             todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
@@ -216,13 +217,17 @@ document.addEventListener("RENDER_EVENT", function () {
             todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             listUnRead.append(todoElement);
         }
+        if (skip) return;
         if (content.title.toLowerCase() === keyword.toLowerCase() && keyword !== "") {
+            searchResult.innerHTML = "";
             todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             searchResult.append(todoElement);
             let btnBack = document.createElement("p");
             btnBack.classList.add("flex-justify-center");
             btnBack.innerHTML = "<button type='button' onclick='backHome()'>Kembali</button>";
             searchResult.append(btnBack);
+            skip = true;
+            return skip
         } else {
             searchResult.innerHTML = `<div class='no-result'><span>Buku "${keyword}" yang kamu cari tidak ada</span><button type='button' onclick="backHome()">Kembali</button></div>`;
         }
