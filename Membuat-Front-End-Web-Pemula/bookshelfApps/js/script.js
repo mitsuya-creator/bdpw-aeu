@@ -172,10 +172,23 @@ function createCard(id, titleBook, writer, year, isRead) {
     return cardBook;
 }
 
+const searchBox = document.getElementById("search-box");
+const containerShelfBooks = document.getElementById("content");
+const searchResult = document.getElementById("search-result");
+let keyword = "";
+searchBox.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        keyword = e.target.value;
+        searchResult.classList.remove("d-none");
+        containerShelfBooks.classList.add("d-none");
+        document.dispatchEvent(RENDER_EVENT);
+    }
+})
 const RENDER_EVENT = new Event("RENDER_EVENT");
 document.addEventListener("RENDER_EVENT", function () {
     if (listUnRead.hasChildNodes()) listUnRead.innerHTML = "";
     if (listRead.hasChildNodes()) listRead.innerHTML = "";
+    if (searchResult.hasChildNodes()) searchResult.innerHTML = "";
     let todoElement;
     listBooks.forEach(content => {
         if (content.isComplete) {
@@ -184,6 +197,12 @@ document.addEventListener("RENDER_EVENT", function () {
         } else {
             todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             listUnRead.append(todoElement);
+        }
+        if (content.title.toLowerCase() === keyword.toLowerCase() && keyword !== "") {
+            todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
+            searchResult.append(todoElement);
+        } else {
+            searchResult.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>"
         }
     })
     document.querySelectorAll(".btn-succes").forEach(btn => btn.addEventListener("click", function () {
@@ -198,5 +217,4 @@ document.addEventListener("RENDER_EVENT", function () {
     }))
     if (listUnRead.hasChildNodes() === false) listUnRead.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>";
     if (listRead.hasChildNodes() === false) listRead.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>";
-    console.log(listUnRead.hasChildNodes())
 })
