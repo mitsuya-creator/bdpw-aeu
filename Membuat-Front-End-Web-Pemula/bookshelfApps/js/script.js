@@ -175,10 +175,28 @@ function createCard(id, titleBook, writer, year, isRead) {
 const searchBox = document.getElementById("search-box");
 const containerShelfBooks = document.getElementById("content");
 const searchResult = document.getElementById("search-result");
+const searchIcon = document.getElementById("search-icon");
 let keyword = "";
+function backHome() {
+    searchResult.classList.add("d-none");
+    containerShelfBooks.classList.remove("d-none")
+    searchBox.value = "";
+    keyword = "";
+}
+searchBox.addEventListener("input", function (e) {
+    keyword = e.target.value;
+})
 searchBox.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
-        keyword = e.target.value;
+        searchResult.innerHTML = "";
+        searchResult.classList.remove("d-none");
+        containerShelfBooks.classList.add("d-none");
+        document.dispatchEvent(RENDER_EVENT);
+    }
+})
+searchIcon.addEventListener("click", function () {
+    if (keyword != "") {
+        searchResult.innerHTML = "";
         searchResult.classList.remove("d-none");
         containerShelfBooks.classList.add("d-none");
         document.dispatchEvent(RENDER_EVENT);
@@ -201,10 +219,17 @@ document.addEventListener("RENDER_EVENT", function () {
         if (content.title.toLowerCase() === keyword.toLowerCase() && keyword !== "") {
             todoElement = createCard(content.id, content.title, content.author, content.year, content.isComplete);
             searchResult.append(todoElement);
+            let btnBack = document.createElement("p");
+            btnBack.classList.add("flex-justify-center");
+            btnBack.innerHTML = "<button type='button' onclick='backHome()'>Kembali</button>";
+            searchResult.append(btnBack);
         } else {
-            searchResult.innerHTML = "<span class='no-book'>Tidak ada buku disini</span>"
+            searchResult.innerHTML = `<div class='no-result'><span>Buku "${keyword}" yang kamu cari tidak ada</span><button type='button' onclick="backHome()">Kembali</button></div>`;
         }
     })
+    if (listBooks.length == 0) {
+        searchResult.innerHTML = `<div class='no-result'><span>Buku "${keyword}" yang kamu cari tidak ada</span><button type='button' onclick="backHome()">Kembali</button></div>`;
+    }
     document.querySelectorAll(".btn-succes").forEach(btn => btn.addEventListener("click", function () {
         let id = btn.getAttribute("key");
         stateBook(id);
